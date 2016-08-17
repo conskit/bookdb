@@ -1,0 +1,24 @@
+/target
+/classes
+/checkouts
+pom.xml
+pom.xml.asc
+*.jar
+*.class
+/.lein-*
+/.nrepl-port
+.hgignore
+.hg/
+
+*.db
+*.log
+
+/resources/public/js/compiled/*
+
+*.iml
+
+## Directory-based project format:
+.idea/
+
+# IntelliJ
+out/
