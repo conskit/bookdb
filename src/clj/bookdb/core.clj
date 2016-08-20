@@ -16,11 +16,17 @@
   (h/html5
     [:head
      [:meta {:charset "utf-8"}]
+     (h/include-css "/css/bootstrap.min.css")
+     (h/include-css "/css/dataTables.bootstrap.min.css")
      [:title (:title meta)]]
     [:body
      [:div#app rendered-html]
      [:script#app-state {:type "application/edn"} state]
      (h/include-js "/js/compiled/app.js")
+     (h/include-js "/js/jquery.js")
+     (h/include-js "/js/bootstrap.min.js")
+     (h/include-js "/js/jquery.dataTables.min.js")
+     (h/include-js "/js/dataTables.bootstrap.min.js")
      [:script "bookdb.core.init()"]]))
 
 (defn map-of-db-bindings
@@ -38,19 +44,19 @@
 
 (defcontroller
   main-ctrlr
-  [get-first-account get-routes]
+  [get-books get-routes]
   (action
     ^{:route "/"
       :react-server-page {:title "bookdb"
                           :template-fn template}}
-    hello-world
+    book-list
     [req]
-    [:ck.react-server/ok (first (get-first-account))])
+    [:ck.react-server/ok (get-books)])
   (action
-    ^{:route "/page"
-      :react-server-page {:title "Page | bookdb"
+    ^{:route "/create"
+      :react-server-page {:title "Create | bookdb"
                           :template-fn template}}
-    hello-page
+    book-create
     [req]
     [:ck.react-server/ok {:message "Hello There"}])
   (action
@@ -69,6 +75,21 @@
     ^{:route #"/js.*"}
     scripts
     [req]
+    (r/resource-response (:uri req) {:root "public"}))
+  (action
+    ^{:route #"/css.*"}
+    styles
+    [req]
+    (r/resource-response (:uri req) {:root "public"}))
+  (action
+    ^{:route #"/fonts.*"}
+    fonts
+    [req]
+    (r/resource-response (:uri req) {:root "public"}))
+  (action
+    ^{:route #"/images.*"}
+    images
+    [req]
     (r/resource-response (:uri req) {:root "public"})))
 
 
@@ -85,7 +106,7 @@
         (register-controllers! [main-ctrlr])
         (register-interceptors! [ckrs/react-server-page])
         (register-bindings! (merge
-                              (map-of-db-bindings "db/sql/account.sql" (get-in-config [:database]))
+                              (map-of-db-bindings "db/sql/book.sql" (get-in-config [:database]))
                               {:get-render-fn get-render-fn
                                :get-routes    get-routes}))
         (register-handler! :http-kit :bidi)

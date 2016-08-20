@@ -3,9 +3,9 @@
     (:require [re-frame.core :as re-frame]))
 
 (re-frame/register-sub
- :name
+ :all-books
  (fn [db]
-   (reaction (get-in @db [1 :data :firstname]))))
+   (reaction (get-in @db [1 :data]))))
 
 (re-frame/register-sub
   :current-page
