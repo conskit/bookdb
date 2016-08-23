@@ -10,6 +10,8 @@
                  ;; client
                  [org.clojure/clojurescript "1.9.89"]
                  [reagent "0.5.1"]
+                 [reagent-forms "0.5.25"]
+                 [org.clojars.frozenlock/reagent-modals "0.2.5"]
                  [re-frame "0.7.0"]
                  [binaryage/devtools "0.6.1"]
                  [cljs-ajax "0.5.8"]
@@ -59,6 +61,7 @@
                                                :compiler     {:main            bookdb.core
                                                               :output-to       "resources/public/js/compiled/app.js"
                                                               :optimizations   :advanced
+                                                              :externs          ^:replace ["externs.js"]
                                                               :closure-defines {
                                                                                 bookdb.config/DEBUG! false}
                                                               :pretty-print    false}}}}}}

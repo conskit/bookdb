@@ -9,7 +9,8 @@
             [hugsql.core :as hug]
             [hiccup.page :as h]
             [ring.util.response :as r]
-            [ck.react-server :as ckrs]))
+            [ck.react-server :as ckrs]
+            [bookdb.actions :refer [crud-ctrlr]]))
 
 (defn template
   [rendered-html meta state]
@@ -38,9 +39,13 @@
 
 (defn bidify
   [routes]
-  ["" (for [r routes
-            :let [{:keys [id route]} r]]
-        [route id])])
+  (let [not-catch-all? #(not (true? (:route %)))
+        catch-all (remove not-catch-all? routes)
+        filtered-routes (filter not-catch-all? routes)
+        rs (if (not-empty catch-all) (concat filtered-routes catch-all) routes)]
+    ["" (for [r rs
+              :let [{:keys [id route]} r]]
+          [route id])]))
 
 (defcontroller
   main-ctrlr
@@ -103,7 +108,7 @@
    [:CKRouter get-routes]]
   (init [this context]
         (log/info "Initializing Application")
-        (register-controllers! [main-ctrlr])
+        (register-controllers! [main-ctrlr crud-ctrlr])
         (register-interceptors! [ckrs/react-server-page])
         (register-bindings! (merge
                               (map-of-db-bindings "db/sql/book.sql" (get-in-config [:database]))
