@@ -56,6 +56,7 @@
                           :template-fn template}}
     book-list
     [req]
+    ;[:ck.react-server/redirect nil {:headers {"Location" "/create"}}]
     [:ck.react-server/ok (get-books)])
   (action
     ^{:route "/create"
