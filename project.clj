@@ -41,6 +41,8 @@
 
   :uberjar-name "bookdb-0.1.0-SNAPSHOT-standalone.jar"
 
+  :min-lein-version "2.0.0"
+
   :profiles {:dev     {:source-paths ["dev/clj"]
                        :dependencies [[org.clojure/tools.namespace "0.2.11"]
                                       [figwheel "0.5.4-7"]
