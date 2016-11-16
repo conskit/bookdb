@@ -30,7 +30,8 @@
                  [org.flywaydb/flyway-core "4.0.3"]
                  [com.layerware/hugsql "0.4.7"]]
 
-  :plugins [[lein-cljsbuild "1.1.3"]]
+  :plugins [[lein-cljsbuild "1.1.3"]
+            [lein-heroku "0.5.3"]]
 
   :source-paths ["src/clj"]
 
