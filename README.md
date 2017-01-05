@@ -1,10 +1,10 @@
 # bookdb
 
-A [Conskit](https://github.com/conskit/conskit) application designed to ... well, that part is up to you.
+A [Conskit](https://github.com/conskit/conskit) application designed as a demo.
 
-## Usage
+### Online
 
-FIXME
+[https://afternoon-cove-93801.herokuapp.com/](https://afternoon-cove-93801.herokuapp.com/)
 
 ## License
 
